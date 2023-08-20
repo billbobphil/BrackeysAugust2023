@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 
 namespace Hook
@@ -13,7 +12,8 @@ namespace Hook
         private List<(ArrowDirections direction, GameObject arrow)> _sequence;
         [SerializeField] private GameObject arrowPrefab;
         [SerializeField] private List<GameObject> arrowSpawnPoints;
-        private List<GameObject> spawnedArrows = new List<GameObject>();
+        private List<GameObject> _spawnedArrows = new List<GameObject>();
+        [SerializeField] private float timeToFailure = 3f;
         
         private float _timeBetweenGames;
         private bool _isGameEnabled;
@@ -21,6 +21,7 @@ namespace Hook
         private float _timer = 0f;
         private int _currentArrowIndex;
         private bool _allowInput;
+        private float _failureTimer;
         
         private enum ArrowDirections
         {
@@ -63,8 +64,11 @@ namespace Hook
         
         private void OnHookedSomething(IHookable hookedObject)
         {
-            _isGameEnabled = true;
-            _areArrowsCurrentlySpawned = false;
+            if (hookedObject is Gnome.Gnome gnome)
+            {
+                _isGameEnabled = true;
+                _areArrowsCurrentlySpawned = false;    
+            }
         }
 
         private void Update()
@@ -73,6 +77,14 @@ namespace Hook
             
             if(_areArrowsCurrentlySpawned)
             {
+                _failureTimer += Time.deltaTime;
+
+                if (_failureTimer >= timeToFailure)
+                {
+                    FailArrowGame();
+                    return;
+                }
+                
                 if (!Input.anyKeyDown || !_allowInput) return;
                 KeyCode pressedKey = KeyCode.None;
                 foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
@@ -121,7 +133,7 @@ namespace Hook
                 ArrowDirections direction = (ArrowDirections) randomDirection;
                 
                 GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoints[i].transform);
-                spawnedArrows.Add(arrow);
+                _spawnedArrows.Add(arrow);
                 
                 float rotation = direction switch
                 {
@@ -150,9 +162,7 @@ namespace Hook
             }
             else
             {
-                _areArrowsCurrentlySpawned = false;
-                _currentArrowIndex = 0;
-                spawnedArrows.ForEach(Destroy);
+               ResetGame();
             }
         }
         
@@ -176,6 +186,20 @@ namespace Hook
 
             _currentArrowIndex = 0;
             _allowInput = true;
+        }
+
+        private void FailArrowGame()
+        {
+            //TODO: What to add to game loop for failure?
+            // X amount of tries before item falls off and goes back
+            ResetGame();
+        }
+
+        private void ResetGame()
+        {
+            _areArrowsCurrentlySpawned = false;
+            _currentArrowIndex = 0;
+            _spawnedArrows.ForEach(Destroy);
         }
     }
 }

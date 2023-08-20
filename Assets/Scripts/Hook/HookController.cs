@@ -15,6 +15,7 @@ namespace Hook
         [SerializeField] private float horizontalSpeed = .1f;
 
         public static UnityAction<IHookable> OnCaughtSomething;
+        public static UnityAction<IHookable> OnHookedSomething;
 
         private void FixedUpdate()
         {
@@ -25,10 +26,12 @@ namespace Hook
                 MoveFast(Vector2.down);
             }
 
-            if (currentDirection == Vector2.up && Input.GetKey(KeyCode.W))
-            {
-                MoveFast(Vector2.up);
-            }
+            //TODO: up arrow prevents having an up-button for speed up on same key
+            //Probably best to just remove
+            // if (currentDirection == Vector2.up && Input.GetKey(KeyCode.W))
+            // {
+            //     MoveFast(Vector2.up);
+            // }
 
             //TODO: when hook at max length in one direction should have some sort of indication that it can't go further
             if (Input.GetKey(KeyCode.A))
@@ -76,6 +79,7 @@ namespace Hook
             {
                 hookableObject.OnHooked(gameObject);
                 OnSomethingHooked(hookableObject);
+                OnHookedSomething?.Invoke(hookableObject);
             }
         }
 

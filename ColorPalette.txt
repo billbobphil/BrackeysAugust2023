@@ -1,0 +1,17 @@
+Retrotronic by Doph on Lospec:
+https://lospec.com/palette-list/retrotronic
+
+Brownish:
+#392b35
+
+Aquamarine:
+#7a9c96
+
+Blue:
+#486b7f
+
+Beige:
+#d1bfb0
+
+Red:
+#bb474f

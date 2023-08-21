@@ -12,12 +12,12 @@ namespace Hook
 
         private void OnEnable()
         {
-            HookController.OnCaughtSomething += OnCaughtSomething;
+            HookController.OnSurfaced += OnSurfaced;
         }
 
         private void OnDisable()
         {
-            HookController.OnCaughtSomething -= OnCaughtSomething;
+            HookController.OnSurfaced -= OnSurfaced;
         }
         
         private void Update()
@@ -33,7 +33,7 @@ namespace Hook
             }
         }
 
-        private void OnCaughtSomething(IHookable hookedObject)
+        private void OnSurfaced()
         {
             _doesHookExist = false;
         }

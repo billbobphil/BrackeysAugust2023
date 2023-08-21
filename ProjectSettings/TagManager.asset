@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Hook
   - CaughtPlane
+  - Gnome
+  - OceanFloor
+  - Fish
   layers:
   - Default
   - TransparentFX

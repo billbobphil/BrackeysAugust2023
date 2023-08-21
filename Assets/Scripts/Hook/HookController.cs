@@ -7,15 +7,44 @@ namespace Hook
 {
     public class HookController : MonoBehaviour
     {
-        [SerializeField] private float baseSpeed = .5f;
-        [SerializeField] private float fastSpeed = 1f;
+        [SerializeField] private float baseSpeed;
+        [SerializeField] private float fastSpeed;
+        [SerializeField] private float gameWinSpeedIncrement;
         [SerializeField] private Rigidbody2D hookRigidbody;
         [SerializeField] private Vector2 currentDirection;
         private IHookable _hookedObject;
         [SerializeField] private float horizontalSpeed = .1f;
+        [SerializeField] private HookArrowController hookArrowController;
 
         public static UnityAction<IHookable> OnCaughtSomething;
         public static UnityAction<IHookable> OnHookedSomething;
+        public static UnityAction OnSurfaced;
+
+        private void OnEnable()
+        {
+            HookArrowController.ArrowGameWon += OnArrowGameWon;
+            HookArrowController.ArrowGameLostTooManyTimes += OnArrowGameLostTooManyTimes;
+        }
+        
+        private void OnDisable()
+        {
+            HookArrowController.ArrowGameWon -= OnArrowGameWon;
+            HookArrowController.ArrowGameLostTooManyTimes -= OnArrowGameLostTooManyTimes;
+        }
+        
+        private void OnArrowGameWon()
+        {
+            baseSpeed += gameWinSpeedIncrement;
+        }
+        
+        private void OnArrowGameLostTooManyTimes()
+        {
+            if (_hookedObject is Gnome.Gnome gnome)
+            {
+                _hookedObject = null;
+                gnome.Drop();
+            }
+        }
 
         private void FixedUpdate()
         {
@@ -26,12 +55,10 @@ namespace Hook
                 MoveFast(Vector2.down);
             }
 
-            //TODO: up arrow prevents having an up-button for speed up on same key
-            //Probably best to just remove
-            // if (currentDirection == Vector2.up && Input.GetKey(KeyCode.W))
-            // {
-            //     MoveFast(Vector2.up);
-            // }
+            if (currentDirection == Vector2.down && Input.GetKey(KeyCode.R))
+            {
+                currentDirection = Vector2.up;
+            }
 
             //TODO: when hook at max length in one direction should have some sort of indication that it can't go further
             if (Input.GetKey(KeyCode.A))
@@ -63,11 +90,30 @@ namespace Hook
                 if (_hookedObject is not null)
                 {
                     OnCaughtSomething?.Invoke(_hookedObject);
-                    Destroy(gameObject);
                 }
+
+                if (currentDirection == Vector2.up)
+                {
+                    OnSurfaced?.Invoke();
+                    Destroy(gameObject);    
+                }
+                
+                return;
+            }
+
+            if (other.CompareTag("OceanFloor"))
+            {
+                currentDirection = Vector2.up;
+            }
+            
+            if(other.CompareTag("Fish") && _hookedObject is Gnome.Gnome)
+            {
+                hookArrowController.FailArrowGame();
+                hookArrowController.ResetGame();
                 return;
             }
             
+            //Guard so we can't catch two things
             if (_hookedObject is not null)
             {
                 return;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Hook
 {
@@ -22,7 +23,12 @@ namespace Hook
         private int _currentArrowIndex;
         private bool _allowInput;
         private float _failureTimer;
-        
+        private int _gamesFailed;
+
+        public static UnityAction ArrowGameWon;
+        public static UnityAction<int> ArrowGameLost;
+        public static UnityAction ArrowGameLostTooManyTimes;
+
         private enum ArrowDirections
         {
             Up,
@@ -82,6 +88,7 @@ namespace Hook
                 if (_failureTimer >= timeToFailure)
                 {
                     FailArrowGame();
+                    ResetGame();
                     return;
                 }
                 
@@ -162,40 +169,60 @@ namespace Hook
             }
             else
             {
-               ResetGame();
+                ArrowGameWon?.Invoke();
+                ResetGame();
+                _failureTimer = 0;
             }
         }
         
         private IEnumerator ProcessArrowFailure()
         {
-            //TODO: some sort of punishment for failure of pulling up the hook
+            FailArrowGame();
             _allowInput = false;
             //TODO: sound effects
             
             for (int i = 0; i <= _currentArrowIndex; i++)
             {
-                _sequence[i].arrow.GetComponentInChildren<SpriteRenderer>().color = Color.red;
+                if (_sequence[i].arrow is not null)
+                {
+                    _sequence[i].arrow.GetComponentInChildren<SpriteRenderer>().color = Color.red;    
+                }
             }
 
             yield return new WaitForSecondsRealtime(1);
             
             for (int i = 0; i <= _currentArrowIndex; i++)
             {
-                _sequence[i].arrow.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+                if (_sequence[i].arrow is not null)
+                {
+                    _sequence[i].arrow.GetComponentInChildren<SpriteRenderer>().color = Color.white;    
+                }
             }
 
             _currentArrowIndex = 0;
             _allowInput = true;
-        }
-
-        private void FailArrowGame()
-        {
-            //TODO: What to add to game loop for failure?
-            // X amount of tries before item falls off and goes back
             ResetGame();
         }
 
-        private void ResetGame()
+        public void FailArrowGame()
+        {
+            _failureTimer = 0;
+            _gamesFailed++;
+            
+            Debug.Log($"Failed {_gamesFailed} times");
+
+            if (_gamesFailed >= 3)
+            {
+                ArrowGameLostTooManyTimes?.Invoke();
+                _isGameEnabled = false;
+            }
+            else
+            {
+                ArrowGameLost?.Invoke(_gamesFailed);    
+            }
+        }
+
+        public void ResetGame()
         {
             _areArrowsCurrentlySpawned = false;
             _currentArrowIndex = 0;

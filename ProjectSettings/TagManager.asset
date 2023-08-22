@@ -9,6 +9,7 @@ TagManager:
   - Gnome
   - OceanFloor
   - Fish
+  - FishingRod
   layers:
   - Default
   - TransparentFX

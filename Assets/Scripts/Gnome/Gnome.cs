@@ -5,7 +5,7 @@ namespace Gnome
 {
     public class Gnome : MonoBehaviour, IHookable
     {
-        private bool _hooked;
+        // private bool _hooked;
         private Vector2 _startingPosition;
 
         private void Start()
@@ -22,7 +22,7 @@ namespace Gnome
         public void OnHooked(GameObject hook)
         {
             transform.parent = hook.transform;
-            _hooked = true;
+            // _hooked = true;
         }
     }
 }

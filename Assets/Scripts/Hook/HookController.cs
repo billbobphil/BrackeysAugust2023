@@ -15,6 +15,7 @@ namespace Hook
         private IHookable _hookedObject;
         [SerializeField] private float horizontalSpeed = .1f;
         [SerializeField] private HookArrowController hookArrowController;
+        private LineRenderer _lineRenderer;
 
         public static UnityAction<IHookable> OnCaughtSomething;
         public static UnityAction<IHookable> OnHookedSomething;
@@ -31,7 +32,18 @@ namespace Hook
             HookArrowController.ArrowGameWon -= OnArrowGameWon;
             HookArrowController.ArrowGameLostTooManyTimes -= OnArrowGameLostTooManyTimes;
         }
-        
+
+        private void Start()
+        {
+            _lineRenderer = GetComponent<LineRenderer>();
+            _lineRenderer.positionCount = 2;
+            _lineRenderer.SetPosition(0, transform.position);
+            Vector3 rodPosition = GameObject.FindWithTag("FishingRod").transform.position;
+            _lineRenderer.SetPosition(1, rodPosition);
+            _lineRenderer.startWidth = .05f;
+            _lineRenderer.endWidth = .05f;
+        }
+
         private void OnArrowGameWon()
         {
             baseSpeed += gameWinSpeedIncrement;
@@ -76,6 +88,11 @@ namespace Hook
                     transform.position += (Vector3)Vector2.right * horizontalSpeed;    
                 }
             }
+        }
+
+        private void LateUpdate()
+        {
+            _lineRenderer.SetPosition(0, transform.position);
         }
 
         private void MoveFast(Vector2 direction)

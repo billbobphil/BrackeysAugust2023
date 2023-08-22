@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 namespace Hook
 {
@@ -193,9 +195,13 @@ namespace Hook
             
             for (int i = 0; i <= _currentArrowIndex; i++)
             {
-                if (_sequence[i].arrow is not null)
+                try
                 {
-                    _sequence[i].arrow.GetComponentInChildren<SpriteRenderer>().color = Color.white;    
+                    _sequence[i].arrow.GetComponentInChildren<SpriteRenderer>().color = Color.white;   
+                }
+                catch (Exception)
+                {
+                    //squash
                 }
             }
 

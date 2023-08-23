@@ -24,6 +24,7 @@ namespace Fish
             _swimDistanceFromOrigin = Random.Range(swimDistanceFromOriginMin, swimDistanceFromOriginMax);
             _horizontalDirection = Random.Range(0, 2) == 0 ? Vector2.left : Vector2.right;
             _startingPosition = transform.position;
+            PickCorrectSpriteDirection();
         }
 
         private void FixedUpdate()
@@ -41,6 +42,7 @@ namespace Fish
                 transform.position.x >= FishingBounds.HorizontalBoundingDistance)
             {
                 _horizontalDirection *= -1;
+                PickCorrectSpriteDirection();
             }
         }
 
@@ -48,6 +50,14 @@ namespace Fish
         {
             transform.parent = hook.transform;
             _hooked = true;
+        }
+
+        private void PickCorrectSpriteDirection()
+        {
+            if(_horizontalDirection == Vector2.left)
+                transform.localScale = new Vector3(-1, 1, 1);
+            else
+                transform.localScale = new Vector3(1, 1, 1);
         }
     }
 }

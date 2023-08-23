@@ -54,8 +54,8 @@ namespace Management
                 else if (Random.Range(0, 100) < chanceToSpawnFish)
                 {
                     float x = Random.Range(-FishingBounds.HorizontalBoundingDistance, FishingBounds.HorizontalBoundingDistance);
-                    //90 degree quaternion rotation
-                    GameObject createdFish = Instantiate(fishPrefabs[Random.Range(0, fishPrefabs.Count)], new Vector3(x, -i, 0), Quaternion.Euler(0, 0, 90) );
+                    
+                    GameObject createdFish = Instantiate(fishPrefabs[Random.Range(0, fishPrefabs.Count)], new Vector3(x, -i, 0), Quaternion.identity);
                     _levelObjects.Add(i, createdFish);
                 }
             }

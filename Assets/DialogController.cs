@@ -9,6 +9,7 @@ public class DialogController : MonoBehaviour
     [SerializeField] private KeyCode keyToAdvanceDialog;
     [SerializeField] private TextMeshProUGUI dialogText;
     private int _currentDialogIndex;
+    [SerializeField] private SceneNavigator sceneNavigator;
     
     private void Start()
     {
@@ -28,8 +29,7 @@ public class DialogController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Dialog complete");
-            //TODO: trigger scene advance
+            sceneNavigator.GoToGame();
         }
     }
 }

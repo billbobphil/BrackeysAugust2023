@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 374879244}
   - component: {fileID: 374879247}
   - component: {fileID: 374879246}
+  - component: {fileID: 374879248}
   m_Layer: 5
   m_Name: SkipText
   m_TagString: Untagged
@@ -470,6 +471,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 374879243}
   m_CullTransparentMesh: 1
+--- !u!114 &374879248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374879243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6858062177543838446}
+          m_TargetAssemblyTypeName: SceneNavigator, Assembly-CSharp
+          m_MethodName: GoToGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &442684684
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,12 +1304,13 @@ MonoBehaviour:
   - Once you help grab a friend, you'll need to battle the weight to bring them up
     to the surface.
   - You'll be prompted with a series of [<lightblue>ARROW KEYS</lightblue>].
-  - Enter these in order and you'll <wave><darkblue>speed up<darkblue></wave>.
+  - Enter the keys in order and you'll <wave><darkblue>speed up<darkblue></wave>.
   - Enter them <shake><red>wrong</red></shake> or run into a <shake><red>fish</red></shake>
     three times and you'll drop your friend...
   - They don't have much <fade>time</fade>. HURRY!
   keyToAdvanceDialog: 13
   dialogText: {fileID: 442684686}
+  sceneNavigator: {fileID: 6858062177543838446}
 --- !u!4 &890159377
 Transform:
   m_ObjectHideFlags: 0
@@ -1447,3 +1478,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1786700757}
   m_CullTransparentMesh: 1
+--- !u!1001 &6858062177543838445
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2333802104310947635, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: m_Name
+      value: SceneNavigator
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124232984029293609, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124232984029293609, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 595.3705
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124232984029293609, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 301.71286
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124232984029293609, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5158081
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124232984029293609, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124232984029293609, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124232984029293609, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124232984029293609, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124232984029293609, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124232984029293609, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124232984029293609, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+--- !u!114 &6858062177543838446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 858470218802219560, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+  m_PrefabInstance: {fileID: 6858062177543838445}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1531e89ae67cdb841bd58baf7ccc5145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

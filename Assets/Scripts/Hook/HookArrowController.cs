@@ -17,6 +17,10 @@ namespace Hook
         [SerializeField] private List<GameObject> arrowSpawnPoints;
         private List<GameObject> _spawnedArrows = new List<GameObject>();
         [SerializeField] private float timeToFailure = 3f;
+
+        private Color beige = new Color(209/255f, 191/255f, 176/255f);
+        private Color red = new Color(187/255f, 70/255f, 79/255f);
+        private Color blue = new Color(122 / 255f, 156 / 255f, 150 / 255f);
         
         private float _timeBetweenGames;
         private bool _isGameEnabled;
@@ -162,7 +166,7 @@ namespace Hook
         
         private void ProcessArrowSuccess()
         {
-            _sequence[_currentArrowIndex].arrow.GetComponentInChildren<SpriteRenderer>().color = Color.green;
+            _sequence[_currentArrowIndex].arrow.GetComponentInChildren<SpriteRenderer>().color = blue;
             //TODO: sound effects
             
             if (_sequence.Count - 1 != _currentArrowIndex)
@@ -187,7 +191,7 @@ namespace Hook
             {
                 if (_sequence[i].arrow is not null)
                 {
-                    _sequence[i].arrow.GetComponentInChildren<SpriteRenderer>().color = Color.red;    
+                    _sequence[i].arrow.GetComponentInChildren<SpriteRenderer>().color = red;    
                 }
             }
 
@@ -197,7 +201,7 @@ namespace Hook
             {
                 try
                 {
-                    _sequence[i].arrow.GetComponentInChildren<SpriteRenderer>().color = Color.white;   
+                    _sequence[i].arrow.GetComponentInChildren<SpriteRenderer>().color = beige;   
                 }
                 catch (Exception)
                 {

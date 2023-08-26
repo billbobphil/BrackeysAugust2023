@@ -10,6 +10,7 @@ TagManager:
   - OceanFloor
   - Fish
   - FishingRod
+  - SoundEffectManager
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,7 @@ namespace Hook
         [SerializeField] private float horizontalSpeed = .1f;
         [SerializeField] private HookArrowController hookArrowController;
         private LineRenderer _lineRenderer;
+        private SoundEffectManager _soundEffectManager;
 
         public static UnityAction<IHookable> OnCaughtSomething;
         public static UnityAction<IHookable> OnHookedSomething;
@@ -35,6 +36,7 @@ namespace Hook
 
         private void Start()
         {
+            _soundEffectManager = GameObject.FindWithTag("SoundEffectManager").GetComponent<SoundEffectManager>();
             _lineRenderer = GetComponent<LineRenderer>();
             _lineRenderer.positionCount = 2;
             _lineRenderer.SetPosition(0, transform.position);
@@ -42,6 +44,7 @@ namespace Hook
             _lineRenderer.SetPosition(1, rodPosition);
             _lineRenderer.startWidth = .05f;
             _lineRenderer.endWidth = .05f;
+            _soundEffectManager.reelingSoundEffect.Stop();
         }
 
         private void OnArrowGameWon()
@@ -60,6 +63,11 @@ namespace Hook
 
         private void FixedUpdate()
         {
+            if (currentDirection == Vector2.up && !_soundEffectManager.reelingSoundEffect.isPlaying)
+            {
+                _soundEffectManager.reelingSoundEffect.Play();
+            }
+            
             hookRigidbody.velocity = currentDirection * baseSpeed;
             
             if (currentDirection == Vector2.down && Input.GetKey(KeyCode.S))
@@ -69,6 +77,7 @@ namespace Hook
 
             if (currentDirection == Vector2.down && Input.GetKey(KeyCode.R))
             {
+                GetComponent<SpriteRenderer>().flipY = false;
                 currentDirection = Vector2.up;
             }
 
@@ -104,6 +113,8 @@ namespace Hook
         {
             if (other.CompareTag("CaughtPlane"))
             {
+                _soundEffectManager.reelingSoundEffect.Stop();
+                _soundEffectManager.caughtSomething.Play();
                 if (_hookedObject is not null)
                 {
                     OnCaughtSomething?.Invoke(_hookedObject);
@@ -125,6 +136,7 @@ namespace Hook
             
             if(other.CompareTag("Fish") && _hookedObject is Gnome.Gnome)
             {
+                _soundEffectManager.hitObstacle.Play();
                 hookArrowController.FailArrowGame();
                 hookArrowController.ResetGame();
                 return;
@@ -140,6 +152,7 @@ namespace Hook
             
             if (hookableObject is not null)
             {
+                GetComponent<SpriteRenderer>().flipY = false;
                 hookableObject.OnHooked(gameObject);
                 OnSomethingHooked(hookableObject);
                 OnHookedSomething?.Invoke(hookableObject);

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Management;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -17,6 +18,7 @@ namespace Hook
         [SerializeField] private List<GameObject> arrowSpawnPoints;
         private List<GameObject> _spawnedArrows = new List<GameObject>();
         [SerializeField] private float timeToFailure = 3f;
+        private SoundEffectManager _soundEffectManager;
 
         private Color beige = new Color(209/255f, 191/255f, 176/255f);
         private Color red = new Color(187/255f, 70/255f, 79/255f);
@@ -61,6 +63,7 @@ namespace Hook
         
         private void Start()
         {
+            _soundEffectManager = GameObject.FindWithTag("SoundEffectManager").GetComponent<SoundEffectManager>();
             _timeBetweenGames = Random.Range(timeBetweenMiniGameSpawnsMin, timeBetweenMiniGameSpawnsMax);
         }
         
@@ -167,7 +170,7 @@ namespace Hook
         private void ProcessArrowSuccess()
         {
             _sequence[_currentArrowIndex].arrow.GetComponentInChildren<SpriteRenderer>().color = blue;
-            //TODO: sound effects
+            _soundEffectManager.successArrowSoundEffect.Play();
             
             if (_sequence.Count - 1 != _currentArrowIndex)
             {
@@ -185,7 +188,7 @@ namespace Hook
         {
             FailArrowGame();
             _allowInput = false;
-            //TODO: sound effects
+            _soundEffectManager.failureArrowSoundEffect.Play();
             
             for (int i = 0; i <= _currentArrowIndex; i++)
             {

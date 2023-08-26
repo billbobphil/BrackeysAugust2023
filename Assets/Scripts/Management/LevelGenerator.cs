@@ -12,9 +12,11 @@ namespace Management
         [SerializeField] private int numberOfLevelsPerCycle;
         [SerializeField] private int chanceToSpawnGnome;
         [SerializeField] private int chanceToSpawnFish;
+        [SerializeField] private int chanceToSpawnBubble;
         [SerializeField] private GameObject oceanFloorPrefab;
         [SerializeField] private int distanceToLeaveToOceanFloor;
-        private int currentYLevel = 2;
+        [SerializeField] private GameObject bubblePrefab;
+        private int _currentYLevel = 2;
         
         private Dictionary<int, GameObject> _levelObjects = new Dictionary<int, GameObject>();
 
@@ -26,25 +28,29 @@ namespace Management
         private void GenerateLevel()
         {
             //skip some amount of initial levels
-            currentYLevel += numberOfInitialLevelsToSkip;
+            _currentYLevel += numberOfInitialLevelsToSkip;
             
             for(int i = 0; i < numberOfGnomesToCreate; i++)
             {
-               RunCycle();
+                bool lastPass = i == numberOfGnomesToCreate - 1;
+                RunCycle(lastPass);
             }
 
-            currentYLevel += distanceToLeaveToOceanFloor;
-            Instantiate(oceanFloorPrefab, new Vector3(0, -currentYLevel, 0), Quaternion.identity);
+            _currentYLevel += distanceToLeaveToOceanFloor;
+            float x = Random.Range(-FishingBounds.HorizontalBoundingDistance, FishingBounds.HorizontalBoundingDistance);
+            GameObject createdGnome = Instantiate(gnomePrefabs[Random.Range(0, gnomePrefabs.Count)], new Vector3(x, -(_currentYLevel - 2), 0), Quaternion.identity);
+            _levelObjects.Add(_currentYLevel, createdGnome);
+            Instantiate(oceanFloorPrefab, new Vector3(0, -_currentYLevel, 0), Quaternion.identity);
         }
 
-        private void RunCycle()
+        private void RunCycle(bool lastPass)
         {
             bool gnomeSpawned = false;
             
-            for(int i = currentYLevel; i < currentYLevel + numberOfLevelsPerCycle; i += 2)
+            for(int i = _currentYLevel; i < _currentYLevel + numberOfLevelsPerCycle; i += 2)
             {
                 //10% chance to spawn a gnome
-                if (!gnomeSpawned && Random.Range(0, 100) < chanceToSpawnGnome)
+                if (!gnomeSpawned && !lastPass && Random.Range(0, 100) < chanceToSpawnGnome)
                 {
                     float x = Random.Range(-FishingBounds.HorizontalBoundingDistance, FishingBounds.HorizontalBoundingDistance);
                     GameObject createdGnome = Instantiate(gnomePrefabs[Random.Range(0, gnomePrefabs.Count)], new Vector3(x, -i, 0), Quaternion.identity);
@@ -58,22 +64,28 @@ namespace Management
                     GameObject createdFish = Instantiate(fishPrefabs[Random.Range(0, fishPrefabs.Count)], new Vector3(x, -i, 0), Quaternion.identity);
                     _levelObjects.Add(i, createdFish);
                 }
+                else if (Random.Range(0, 100) < chanceToSpawnBubble)
+                {
+                    float x = Random.Range(-FishingBounds.HorizontalBoundingDistance, FishingBounds.HorizontalBoundingDistance);
+                    GameObject createdBubble = Instantiate(bubblePrefab, new Vector3(x, -i, 0), Quaternion.identity);
+                    _levelObjects.Add(i, createdBubble);
+                }
             }
 
             if (!gnomeSpawned)
             {
-                if (_levelObjects.TryGetValue(currentYLevel + numberOfLevelsPerCycle, out GameObject fish))
+                if (_levelObjects.TryGetValue(_currentYLevel + numberOfLevelsPerCycle, out GameObject fish))
                 {
                     Destroy(fish);
-                    _levelObjects.Remove(currentYLevel + numberOfLevelsPerCycle);
+                    _levelObjects.Remove(_currentYLevel + numberOfLevelsPerCycle);
                 }
                 
-                GameObject gnome = Instantiate(gnomePrefabs[Random.Range(0, gnomePrefabs.Count)], new Vector3(0, -(currentYLevel + numberOfLevelsPerCycle), 0),
+                GameObject gnome = Instantiate(gnomePrefabs[Random.Range(0, gnomePrefabs.Count)], new Vector3(0, -(_currentYLevel + numberOfLevelsPerCycle), 0),
                     Quaternion.identity);
-                _levelObjects.Add(currentYLevel + numberOfLevelsPerCycle, gnome);
+                _levelObjects.Add(_currentYLevel + numberOfLevelsPerCycle, gnome);
             }
             
-            currentYLevel += numberOfLevelsPerCycle + 2;
+            _currentYLevel += numberOfLevelsPerCycle + 2;
         }
     }
 }

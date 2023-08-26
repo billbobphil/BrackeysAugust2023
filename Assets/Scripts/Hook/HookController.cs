@@ -1,5 +1,6 @@
 using System;
 using Management;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,6 +18,7 @@ namespace Hook
         [SerializeField] private HookArrowController hookArrowController;
         private LineRenderer _lineRenderer;
         private SoundEffectManager _soundEffectManager;
+        [SerializeField] private MMFeedbacks collisionFeedback;
 
         public static UnityAction<IHookable> OnCaughtSomething;
         public static UnityAction<IHookable> OnHookedSomething;
@@ -146,6 +148,7 @@ namespace Hook
             
             if(other.CompareTag("Fish") && _hookedObject is Gnome.Gnome)
             {
+                collisionFeedback.PlayFeedbacks();
                 _soundEffectManager.hitObstacle.Play();
                 hookArrowController.FailArrowGame();
                 hookArrowController.ResetGame();

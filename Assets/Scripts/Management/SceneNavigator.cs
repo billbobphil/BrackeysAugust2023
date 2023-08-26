@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,24 +6,35 @@ namespace Management
 {
     public class SceneNavigator : MonoBehaviour
     {
+        [SerializeField] private Animator transitionAnimator;
+        [SerializeField] private float transitionTime = 1f;
+        
         public void GoToGame()
         {
-            SceneManager.LoadScene("Game");
+            StartCoroutine(TransitionLevel("Game"));
         }
 
         public void GoToIntro()
         {
-            SceneManager.LoadScene("Intro");
+            StartCoroutine(TransitionLevel("Intro"));
         }
 
         public void GoToMenu()
         {
-            SceneManager.LoadScene("Menu");
+            StartCoroutine(TransitionLevel("Menu"));
         }
 
         public void GoToCredits()
         {
-            SceneManager.LoadScene("Credits");
+            StartCoroutine(TransitionLevel("Credits"));
+        }
+        
+        IEnumerator TransitionLevel(string sceneName)
+        {
+            transitionAnimator.SetBool("Open", false);
+            yield return new WaitForSeconds(transitionTime);
+            SceneManager.LoadScene(sceneName);
+
         }
     }
 }

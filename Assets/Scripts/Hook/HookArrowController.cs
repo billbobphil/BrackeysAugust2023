@@ -96,6 +96,7 @@ namespace Hook
 
                 if (_failureTimer >= timeToFailure)
                 {
+                    _soundEffectManager.failureArrowSoundEffect.Play();
                     FailArrowGame();
                     ResetGame();
                     return;

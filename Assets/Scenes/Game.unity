@@ -250,8 +250,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.7453003, y: -4.6964493, z: 0}
-    m_Extent: {x: 24.8941, y: 46.17105, z: 0}
+    m_Center: {x: -0.75365067, y: -4.708399, z: 0}
+    m_Extent: {x: 24.89645, y: 46.166298, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1008,8 +1008,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 20.3929, y: -14.475349, z: 0}
-    m_Extent: {x: 44.5362, y: 57.10585, z: 0}
+    m_Center: {x: 20.3971, y: -14.475052, z: 0}
+    m_Extent: {x: 44.543198, y: 57.09745, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1548,8 +1548,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 17.196001, y: -13.2762985, z: 0}
-    m_Extent: {x: 42.8453, y: 55.432, z: 0}
+    m_Center: {x: 17.1904, y: -13.274149, z: 0}
+    m_Extent: {x: 42.8417, y: 55.430252, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -5371,7 +5371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerType: 1
   timerDisplayType: 1
-  timerDurationSeconds: 10
+  timerDurationSeconds: 180
   daysText: {fileID: 0}
   hoursText: {fileID: 0}
   minutesText: {fileID: 1708987386}
@@ -5456,8 +5456,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 191.2594, y: -112.9397, z: 0}
-    m_Extent: {x: 215.11581, y: 155.9288, z: 0}
+    m_Center: {x: 191.26611, y: -112.9405, z: 0}
+    m_Extent: {x: 215.1084, y: 155.9215, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

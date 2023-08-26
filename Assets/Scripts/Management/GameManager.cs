@@ -51,6 +51,7 @@ namespace Management
         {
             Debug.Log("You lose!");
             scoreScreen.ShowScoreScreen(_gnomesCaught, (int)timer.GetTime(), false);
+            timer.gameObject.SetActive(false);
         }
     }
 }

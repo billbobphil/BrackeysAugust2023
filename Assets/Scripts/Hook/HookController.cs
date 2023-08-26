@@ -58,6 +58,7 @@ namespace Hook
             {
                 _hookedObject = null;
                 gnome.Drop();
+                _soundEffectManager.gnomeDrop.Play();
             }
         }
 
@@ -114,10 +115,19 @@ namespace Hook
             if (other.CompareTag("CaughtPlane"))
             {
                 _soundEffectManager.reelingSoundEffect.Stop();
-                _soundEffectManager.caughtSomething.Play();
+                
                 if (_hookedObject is not null)
                 {
                     OnCaughtSomething?.Invoke(_hookedObject);
+                    
+                    if(_hookedObject is Gnome.Gnome)
+                    {
+                        _soundEffectManager.caughtGnome.Play();
+                    }
+                    else if (_hookedObject is Fish.Fish)
+                    {
+                        _soundEffectManager.caughtFish.Play();
+                    }
                 }
 
                 if (currentDirection == Vector2.up)
@@ -156,6 +166,15 @@ namespace Hook
                 hookableObject.OnHooked(gameObject);
                 OnSomethingHooked(hookableObject);
                 OnHookedSomething?.Invoke(hookableObject);
+                
+                if(hookableObject is Gnome.Gnome)
+                {
+                    _soundEffectManager.hookedGnome.Play();
+                }
+                else if (hookableObject is Fish.Fish)
+                {
+                    _soundEffectManager.hookedFish.Play();
+                }
             }
         }
 

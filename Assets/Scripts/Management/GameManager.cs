@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Hook;
 using UnityEngine;
+using UnityEngine.UI;
 using Utilities;
 
 namespace Management
@@ -8,6 +10,10 @@ namespace Management
     {
         [SerializeField] private LevelGenerator levelGenerator;
         private int _gnomesCaught;
+        [SerializeField] private List<Image> gnomeImages = new List<Image>();
+        [SerializeField] private Sprite caughtGnomeSprite;
+        [SerializeField] private ScoreScreen scoreScreen;
+        [SerializeField] private Timer timer;
 
         private void OnEnable()
         {
@@ -20,25 +26,31 @@ namespace Management
             HookController.OnCaughtSomething -= OnCaughtSomething;
             Timer.TimerExpired -= OnTimerExpired;
         }
+
+        private void Awake()
+        {
+            Time.timeScale = 1;
+        }
         
         private void OnCaughtSomething(IHookable hookable)
         {
             if (hookable is Gnome.Gnome)
             {
+                gnomeImages[_gnomesCaught].sprite = caughtGnomeSprite;
                 _gnomesCaught++;
             }
             
             if(_gnomesCaught >= levelGenerator.numberOfGnomesToCreate)
             {
                 Debug.Log("You win!");
-                //TODO: victory things
+                scoreScreen.ShowScoreScreen(_gnomesCaught, (int)timer.GetTime(), true);
             }
         }
 
         private void OnTimerExpired()
         {
             Debug.Log("You lose!");
-            //TODO: loss things
+            scoreScreen.ShowScoreScreen(_gnomesCaught, (int)timer.GetTime(), false);
         }
     }
 }

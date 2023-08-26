@@ -10,6 +10,12 @@ namespace Management
         public AudioSource hitObstacle;
         public AudioSource buttonClick;
         public AudioSource buttonHover;
-        public AudioSource caughtSomething;
+        public AudioSource caughtFish;
+        public AudioSource caughtGnome;
+        public AudioSource hookedFish;
+        public AudioSource hookedGnome;
+        public AudioSource victory;
+        public AudioSource defeat;
+        public AudioSource gnomeDrop;
     }
 }

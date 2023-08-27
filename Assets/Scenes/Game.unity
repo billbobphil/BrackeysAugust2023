@@ -250,8 +250,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.7467003, y: -4.70825, z: 0}
-    m_Extent: {x: 24.8964, y: 46.17285, z: 0}
+    m_Center: {x: -0.75615025, y: -4.69755, z: 0}
+    m_Extent: {x: 24.892551, y: 46.164948, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1008,8 +1008,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 20.400452, y: -14.469099, z: 0}
-    m_Extent: {x: 44.53665, y: 57.109398, z: 0}
+    m_Center: {x: 20.3945, y: -14.466948, z: 0}
+    m_Extent: {x: 44.5336, y: 57.105247, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1218,7 +1218,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e70601d182407d54ca50625eabd08be8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1456,7 +1456,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -142, y: 135.39995}
+  m_AnchoredPosition: {x: -143.3, y: 135.4}
   m_SizeDelta: {x: -444.1459, y: -265.3602}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &535570158
@@ -1548,8 +1548,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 17.1971, y: -13.283899, z: 0}
-    m_Extent: {x: 42.8444, y: 55.427002, z: 0}
+    m_Center: {x: 17.197449, y: -13.283848, z: 0}
+    m_Extent: {x: 42.83285, y: 55.42555, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1750,6 +1750,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 858470218802219560, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
+      propertyPath: transitionAnimator
+      value: 
+      objectReference: {fileID: 2011038559}
     - target: {fileID: 2333802104310947635, guid: 206352bf4a4e22546b1e4401f2fbb57f, type: 3}
       propertyPath: m_Name
       value: SceneNavigator
@@ -5591,8 +5595,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 191.26884, y: -112.942154, z: 0}
-    m_Extent: {x: 215.10905, y: 155.92076, z: 0}
+    m_Center: {x: 191.2702, y: -112.943306, z: 0}
+    m_Extent: {x: 215.12009, y: 155.91931, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -5679,7 +5683,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d1743028fbe86e947a2b334b2afbd52c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -6510,7 +6514,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 06dd08c7f29f0b24384776c94791a801, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -6558,7 +6562,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 37.800003}
+  m_AnchoredPosition: {x: 1.6000061, y: 41.324997}
   m_SizeDelta: {x: -203.6748, y: -219.0953}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2048452745

@@ -78,6 +78,11 @@ namespace Hook
                 MoveFast(Vector2.down);
             }
 
+            if (currentDirection == Vector2.up && _hookedObject is Fish.Fish && Input.GetKey(KeyCode.W))
+            {
+                MoveFast(Vector2.up);
+            }
+
             if (currentDirection == Vector2.down && Input.GetKey(KeyCode.R))
             {
                 GetComponent<SpriteRenderer>().flipY = false;

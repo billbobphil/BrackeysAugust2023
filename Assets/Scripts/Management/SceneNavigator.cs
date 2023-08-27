@@ -8,6 +8,11 @@ namespace Management
     {
         [SerializeField] private Animator transitionAnimator;
         [SerializeField] private float transitionTime = 1f;
+
+        private void Start()
+        {
+            Time.timeScale = 1f;
+        }
         
         public void GoToGame()
         {
@@ -32,7 +37,7 @@ namespace Management
         IEnumerator TransitionLevel(string sceneName)
         {
             transitionAnimator.SetBool("Open", false);
-            yield return new WaitForSeconds(transitionTime);
+            yield return new WaitForSecondsRealtime(transitionTime);
             SceneManager.LoadScene(sceneName);
 
         }

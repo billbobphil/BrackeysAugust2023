@@ -72,7 +72,7 @@ namespace Management
                 }
             }
 
-            if (!gnomeSpawned)
+            if (!gnomeSpawned && !lastPass)
             {
                 if (_levelObjects.TryGetValue(_currentYLevel + numberOfLevelsPerCycle, out GameObject fish))
                 {
